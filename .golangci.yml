@@ -1,0 +1,164 @@
+issues:
+  modules-download-mode: readonly
+  exclude-dirs-use-default: false
+  exclude-dirs:
+    - internal/
+    - vendor/
+    - views/
+    - testdata/
+    - scripts/
+    - bin/
+    - dist/
+    - .git/
+    - .github/
+    - .vscode/
+    - .idea/
+
+output:
+  sort-results: true
+
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+    disable-default-exclusions: true
+
+  errchkjson:
+    report-no-exported: true
+
+  exhaustive:
+    default-signifies-exhaustive: true
+
+  gocritic:
+    disabled-checks:
+      - ifElseChain
+
+  gofumpt:
+    module-path: github.com/NarmadaWeb/limiter
+    extra-rules: true
+
+  gosec:
+    config:
+      global:
+        audit: true
+
+  govet:
+    check-shadowing: true
+    enable-all: true
+    disable:
+      - shadow
+      - fieldalignment
+      - loopclosure
+
+  grouper:
+    import-require-single-import: true
+    import-require-grouping: true
+
+  misspell:
+    locale: US
+
+  nolintlint:
+    require-explanation: true
+    require-specific: true
+
+  nonamedreturns:
+    report-error-in-defer: true
+
+  predeclared:
+    q: true
+
+  promlinter:
+    strict: true
+
+  revive:
+    enable-all-rules: true
+    rules:
+      - name: add-constant
+        disabled: true
+      - name: argument-limit
+        disabled: true
+      - name: banned-characters
+        disabled: true
+      - name: cognitive-complexity
+        disabled: true
+      - name: cyclomatic
+        disabled: true
+      - name: early-return
+        severity: warning
+        disabled: true
+      - name: exported
+        disabled: true
+      - name: file-header
+        disabled: true
+      - name: function-result-limit
+        disabled: true
+      - name: function-length
+        disabled: true
+      - name: line-length-limit
+        disabled: true
+      - name: max-public-structs
+        disabled: true
+      - name: modifies-parameter
+        disabled: true
+      - name: nested-structs
+        disabled: true
+      - name: package-comments
+        disabled: true
+
+  tagliatelle:
+    case:
+      rules:
+        json: snake
+
+  wrapcheck:
+    ignorePackageGlobs:
+      - github.com/NarmadaWeb/bertani-ai/*
+
+linters:
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - contextcheck
+    - dogsled
+    - errcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - goconst
+    - gocritic
+    - gofmt
+    - gofumpt
+    - goimports
+    - gomoddirectives
+    - goprintffuncname
+    - gosimple
+    - govet
+    - grouper
+    - loggercheck
+    - misspell
+    - nakedret
+    - nilerr
+    - nilnil
+    - nolintlint
+    - nonamedreturns
+    - nosprintfhostport
+    - predeclared
+    - promlinter
+    - reassign
+    - rowserrcheck
+    - staticcheck
+    - thelper
+    - typecheck
+    - unparam
+    - unused
+    - usestdlibvars
+    - wastedassign
+    - whitespace
+
+
+  disable:
+    - wrapcheck
+    - gosec
+    - revive
+    - forcetypeassert
+    - stylecheck

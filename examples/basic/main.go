@@ -1,10 +1,11 @@
 package main
 
 import (
+	"log"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/NarmadaWeb/limiter/v2"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
@@ -31,5 +32,5 @@ func main() {
 		})
 	})
 
-	app.Listen(":3000")
+	log.Fatal(app.Listen(":3000"))
 }

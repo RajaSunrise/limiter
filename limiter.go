@@ -17,32 +17,32 @@ import (
 
 type Config struct {
 	// Redis Configuration for starting limiter
-	RedisClient		*redis.Client
-	RedisUrl			string
+	RedisClient *redis.Client
+	RedisUrl    string
 
 	// Rate Limiter configuration
-	MaxRequests			int
-	Window				time.Duration
+	MaxRequests int
+	Window      time.Duration
 
 	// value "token-bucket", "sliding-window" and "fixed-window"
-	Algorithm			string
+	Algorithm string
 
-	KeyGenerator		func(c *fiber.Ctx) string
+	KeyGenerator func(c *fiber.Ctx) string
 
-	Skipsuccessfull		bool
-	LimitReachedHandler	fiber.Handler
+	Skipsuccessfull     bool
+	LimitReachedHandler fiber.Handler
 
-	ErrorHandler		func(c *fiber.Ctx, err error) error
+	ErrorHandler func(c *fiber.Ctx, err error) error
 }
 
 type Limiter struct {
-	store			Store
-	config			Config
-	ctx				context.Context
-	cancelfunc 		context.CancelFunc
+	store      Store
+	config     Config
+	ctx        context.Context
+	cancelfunc context.CancelFunc
 }
 
-func New(config Config)(*Limiter, error) {
+func New(config Config) (*Limiter, error) {
 	if err := validateConfig(&config); err != nil {
 		return nil, fmt.Errorf("invalid config: %w", err)
 	}

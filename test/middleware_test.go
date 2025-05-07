@@ -31,13 +31,13 @@ func TestLimiterMiddleware(t *testing.T) {
 
 	// Test request dalam limit
 	for i := 0; i < 5; i++ {
-		resp, err := app.Test(httptest.NewRequest("GET", "/", nil))
+		resp, err := app.Test(httptest.NewRequest(http.MethodGet, "/", nil))
 		assert.NoError(t, err)
 		assert.Equal(t, http.StatusOK, resp.StatusCode)
 	}
 
 	// Test request melebihi limit
-	resp, err := app.Test(httptest.NewRequest("GET", "/", nil))
+	resp, err := app.Test(httptest.NewRequest(http.MethodGet, "/", nil))
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusTooManyRequests, resp.StatusCode)
 	assert.Equal(t, "0", resp.Header.Get("X-RateLimit-Remaining"))
