@@ -148,27 +148,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
-## Key Sections Explained:
-
-1. **Badges**: Shows build status, documentation link, and license info
-2. **Features**: Highlights the package's capabilities
-3. **Installation**: Simple one-line install command
-4. **Usage**: Basic and Redis examples
-5. **Configuration**: Table of all available options
-6. **Headers**: Documents the response headers added
-7. **Algorithms**: Explains the three implemented algorithms
-8. **Benchmarks**: Gives performance expectations
-9. **Testing**: How to run tests
-10. **Examples**: Points to additional examples
-11. **Contributing**: Guidelines for contributors
-12. **License**: MIT license information
-
-This README provides:
-- Quick start for new users
-- Detailed configuration reference
-- Clear explanation of technical concepts
 - Development and contribution guidelines
 - Visual badges for project health
 
