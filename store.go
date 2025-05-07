@@ -16,13 +16,13 @@ type Store interface {
 }
 
 type MemoryStore struct {
-	mu 			sync.Mutex
-	entries		map[string]*MemoryEntries
+	mu      sync.Mutex
+	entries map[string]*MemoryEntries
 }
 
 type MemoryEntries struct {
-	count		int
-	expiresAt	time.Time
+	count     int
+	expiresAt time.Time
 }
 
 func NewMemoryStore() *MemoryStore {

@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/NarmadaWeb/limiter/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -37,5 +37,7 @@ func main() {
 		})
 	})
 
-	app.Listen(":3000")
+	if err := app.Listen(":3000"); err != nil {
+		panic(err)
+	}
 }

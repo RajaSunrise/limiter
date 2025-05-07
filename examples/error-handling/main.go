@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/NarmadaWeb/limiter/v2"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	cfg := limiter.Config{
 		MaxRequests: 3,
 		Window:      30 * time.Second,
-		Algorithm: "sliding-window",
+		Algorithm:   "sliding-window",
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			log.Printf("Rate limiter error: %v", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -42,5 +42,5 @@ func main() {
 		return c.SendString("API endpoint with custom error handling")
 	})
 
-	app.Listen(":3000")
+	log.Fatal(app.Listen(":3000"))
 }

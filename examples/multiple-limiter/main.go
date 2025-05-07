@@ -15,7 +15,7 @@ func main() {
 	globalLimiter, _ := limiter.New(limiter.Config{
 		MaxRequests: 10,
 		Window:      1 * time.Minute,
-		Algorithm: 	 "sliding-window",
+		Algorithm:   "sliding-window",
 	})
 
 	// Strict API limiter (2 requests/second)

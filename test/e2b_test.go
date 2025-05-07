@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/NarmadaWeb/limiter/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -30,7 +30,7 @@ func TestEndToEnd(t *testing.T) {
 
 	// Test helper function
 	makeRequest := func() int {
-		req := httptest.NewRequest("GET", "/", nil)
+		req := httptest.NewRequest(http.MethodGet, "/", nil)
 		resp, err := app.Test(req)
 		assert.NoError(t, err)
 		return resp.StatusCode

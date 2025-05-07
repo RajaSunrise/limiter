@@ -1,10 +1,11 @@
 package main
 
 import (
+	"log"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/NarmadaWeb/limiter/v2"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
@@ -33,5 +34,5 @@ func main() {
 		return c.SendString("Profile page - custom key rate limiting")
 	})
 
-	app.Listen(":3000")
+	log.Fatal(app.Listen(":3000"))
 }
