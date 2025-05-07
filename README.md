@@ -148,8 +148,3 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-- Development and contribution guidelines
-- Visual badges for project health
-
-Would you like me to add any additional sections or modify any part of this README?
