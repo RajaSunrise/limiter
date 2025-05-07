@@ -1,4 +1,4 @@
-name: Run golangci-lint on backend fiber
+name: Run golangci-lint
 
 on:
   push:
@@ -25,7 +25,7 @@ permissions:
   contents: read
 
 jobs:
-  golangci-backend:
+  golangci:
     name: Run golangci-lint on ${{ matrix.os }}
     strategy:
       matrix:

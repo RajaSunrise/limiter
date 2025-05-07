@@ -104,15 +104,6 @@ output:
       - name: package-comments
         disabled: true
 
-  stylecheck:
-    checks:
-      - all
-      - -ST1000
-      - -ST1020
-      - -ST1021
-      - -ST1022
-      - -ST1003
-
   tagliatelle:
     case:
       rules:
@@ -156,7 +147,6 @@ linters:
     - reassign
     - rowserrcheck
     - staticcheck
-    - stylecheck
     - thelper
     - typecheck
     - unparam
@@ -171,3 +161,4 @@ linters:
     - gosec
     - revive
     - forcetypeassert
+    - stylecheck
