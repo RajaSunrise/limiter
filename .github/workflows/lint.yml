@@ -36,6 +36,6 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           # NOTE: Keep this in sync with the version from .golangci.yml
-          version: v1.64.8
+          version: v2.4.0
           # NOTE(ldez): temporary workaround
           install-mode: goinstall
