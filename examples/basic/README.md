@@ -1,3 +1,10 @@
+# Basic Rate Limiting Example
+
+This example demonstrates basic rate limiting with the Fiber limiter using in-memory storage.
+
+## Code
+
+```go
 package main
 
 import (
@@ -23,7 +30,7 @@ func main() {
 		panic(err)
 	}
 
-	app.Use(l.Middleware())
+	app.Use(l.FiberMiddleware(limiter.FiberConfig{}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
@@ -34,3 +41,12 @@ func main() {
 
 	log.Fatal(app.Listen(":3000"))
 }
+```
+
+## Running the Example
+
+```bash
+go run main.go
+```
+
+The server will start on port 3000. You can make requests to `http://localhost:3000/` and see the rate limiting in action. The `X-RateLimit-Remaining` header will show how many requests you have left in the current window.

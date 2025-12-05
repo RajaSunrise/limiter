@@ -1,3 +1,14 @@
+# Redis Rate Limiting Example
+
+This example demonstrates rate limiting with Redis as the storage backend for distributed rate limiting.
+
+## Prerequisites
+
+- Redis server running on localhost:6379 (or update the address in the code)
+
+## Code
+
+```go
 package main
 
 import (
@@ -27,7 +38,7 @@ func main() {
 		panic(err)
 	}
 
-	app.Use(l.Middleware())
+	app.Use(l.FiberMiddleware(limiter.FiberConfig{}))
 
 	app.Get("/data", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
@@ -40,3 +51,15 @@ func main() {
 		panic(err)
 	}
 }
+```
+
+## Running the Example
+
+1. Start Redis server
+2. Run the example:
+
+```bash
+go run main.go
+```
+
+The server will start on port 3000. This setup allows multiple instances of your application to share rate limiting state through Redis.

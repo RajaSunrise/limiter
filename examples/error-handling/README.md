@@ -1,3 +1,10 @@
+# Custom Error Handling Example
+
+This example demonstrates custom error handling and rate limit exceeded responses.
+
+## Code
+
+```go
 package main
 
 import (
@@ -15,6 +22,14 @@ func main() {
 		MaxRequests: 3,
 		Window:      30 * time.Second,
 		Algorithm:   "sliding-window",
+	}
+
+	l, err := limiter.New(cfg)
+	if err != nil {
+		panic(err)
+	}
+
+	fiberCfg := limiter.FiberConfig{
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			log.Printf("Rate limiter error: %v", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -31,12 +46,7 @@ func main() {
 		},
 	}
 
-	l, err := limiter.New(cfg)
-	if err != nil {
-		panic(err)
-	}
-
-	app.Use(l.Middleware())
+	app.Use(l.FiberMiddleware(fiberCfg))
 
 	app.Get("/api", func(c *fiber.Ctx) error {
 		return c.SendString("API endpoint with custom error handling")
@@ -44,3 +54,16 @@ func main() {
 
 	log.Fatal(app.Listen(":3000"))
 }
+```
+
+## Running the Example
+
+```bash
+go run main.go
+```
+
+This example shows custom handlers for:
+- `ErrorHandler`: Called when there's an internal error in the rate limiter
+- `LimitReachedHandler`: Called when the rate limit is exceeded
+
+Make more than 3 requests within 30 seconds to see the custom rate limit exceeded response.

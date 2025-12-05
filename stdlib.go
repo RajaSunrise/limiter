@@ -38,20 +38,28 @@ func (l *Limiter) StdLibMiddleware(cfg StdLibConfig) func(http.Handler) http.Han
 		cfg.LimitReachedHandler = func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusTooManyRequests)
-			json.NewEncoder(w).Encode(map[string]string{
+			if err := json.NewEncoder(w).Encode(map[string]string{
 				"error":   "rate limit exceeded",
 				"message": "Too many requests, please try again later",
-			})
+			}); err != nil {
+				// JSON encoding error, fallback to plain text
+				w.Header().Set("Content-Type", "text/plain")
+				w.Write([]byte("rate limit exceeded"))
+			}
 		}
 	}
 	if cfg.ErrorHandler == nil {
 		cfg.ErrorHandler = func(w http.ResponseWriter, r *http.Request, err error) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{
+			if encodeErr := json.NewEncoder(w).Encode(map[string]string{
 				"error":   "rate limit error",
 				"message": err.Error(),
-			})
+			}); encodeErr != nil {
+				// JSON encoding error, fallback to plain text
+				w.Header().Set("Content-Type", "text/plain")
+				w.Write([]byte("rate limit error"))
+			}
 		}
 	}
 
@@ -59,7 +67,7 @@ func (l *Limiter) StdLibMiddleware(cfg StdLibConfig) func(http.Handler) http.Han
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			key := cfg.KeyGenerator(r)
 
-			allowed, remaining, reset, err := l.store.Take(l.ctx, key, l.config.MaxRequests, l.config.Window, l.config.Algorithm)
+			allowed, remaining, reset, err := l.store.Take(r.Context(), key, l.config.MaxRequests, l.config.Window, l.config.Algorithm)
 			if err != nil {
 				cfg.ErrorHandler(w, r, err)
 				return
@@ -81,7 +89,7 @@ func (l *Limiter) StdLibMiddleware(cfg StdLibConfig) func(http.Handler) http.Han
 			next.ServeHTTP(ww, r)
 
 			if cfg.Skipsuccessfull && ww.code < http.StatusBadRequest {
-				_ = l.store.Rollback(l.ctx, key)
+				_ = l.store.Rollback(r.Context(), key)
 			}
 		})
 	}
