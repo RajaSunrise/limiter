@@ -23,7 +23,8 @@ func TestLimiterMiddleware(t *testing.T) {
 	l, err := limiter.New(limiterCfg)
 	assert.NoError(t, err)
 
-	app.Use(l.Middleware())
+	// Use FiberMiddleware with empty config (defaults)
+	app.Use(l.FiberMiddleware(limiter.FiberConfig{}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("OK")
