@@ -1,107 +1,9 @@
-# golangci-lint v1.64.8 configuration
+version: "2"
 run:
-  timeout: 5m
   modules-download-mode: readonly
   allow-serial-runners: true
-
-output:
-  sort-results: true
-
-linters-settings:
-  errcheck:
-    check-type-assertions: true
-    check-blank: true
-    disable-default-exclusions: true
-
-  errchkjson:
-    report-no-exported: true
-
-  exhaustive:
-    default-signifies-exhaustive: true
-
-  gocritic:
-    disabled-checks:
-      - ifElseChain
-
-  gofumpt:
-    extra-rules: true
-
-  gosec:
-    config:
-      global:
-        audit: true
-
-  govet:
-    enable:
-      - atomicalign
-      - bools
-      - buildtag
-      - cgocall
-      - composites
-      - copylocks
-      - deepequalerrors
-      - directive
-      - errorsas
-      - httpresponse
-      - ifaceassert
-      - loopclosure
-      - lostcancel
-      - nilfunc
-      - printf
-      - shift
-      - sigchanyzer
-      - slog
-      - stdmethods
-      - stringintconv
-      - structtag
-      - testinggoroutine
-      - tests
-      - timeformat
-      - unmarshal
-      - unreachable
-      - unsafeptr
-      - unusedresult
-    disable:
-      - shadow
-      - fieldalignment
-
-  grouper:
-    import-require-single-import: true
-    import-require-grouping: true
-
-  misspell:
-    locale: US
-
-  nolintlint:
-    require-explanation: true
-    require-specific: true
-
-  revive:
-    ignore-generated-header: false
-    severity: warning
-    confidence: 0.8
-    rules:
-      - name: blank-imports
-      - name: context-as-argument
-      - name: context-keys-type
-      - name: dot-imports
-      - name: error-return
-      - name: error-strings
-      - name: error-naming
-        arguments:
-          - disableStutteringCheck: true
-      - name: indent-error-flow
-      - name: increment-decrement
-        arguments:
-          - allowCommonInitialisms: true
-
-  tagliatelle:
-    case:
-      rules:
-        json: snake
-
 linters:
-  disable-all: true
+  default: none
   enable:
     - asasalint
     - asciicheck
@@ -113,12 +15,8 @@ linters:
     - errorlint
     - goconst
     - gocritic
-    - gofmt
-    - gofumpt
-    - goimports
     - gomoddirectives
     - goprintffuncname
-    - gosimple
     - govet
     - grouper
     - ineffassign
@@ -136,12 +34,113 @@ linters:
     - revive
     - rowserrcheck
     - staticcheck
-    - stylecheck
     - thelper
-    - typecheck
     - unconvert
     - unparam
     - unused
     - usestdlibvars
     - wastedassign
     - whitespace
+  settings:
+    errcheck:
+      disable-default-exclusions: true
+      check-type-assertions: true
+      check-blank: true
+    errchkjson:
+      report-no-exported: true
+    exhaustive:
+      default-signifies-exhaustive: true
+    gocritic:
+      disabled-checks:
+        - ifElseChain
+    gosec:
+      config:
+        global:
+          audit: true
+    govet:
+      enable:
+        - atomicalign
+        - bools
+        - buildtag
+        - cgocall
+        - composites
+        - copylocks
+        - deepequalerrors
+        - directive
+        - errorsas
+        - httpresponse
+        - ifaceassert
+        - loopclosure
+        - lostcancel
+        - nilfunc
+        - printf
+        - shift
+        - sigchanyzer
+        - slog
+        - stdmethods
+        - stringintconv
+        - structtag
+        - testinggoroutine
+        - tests
+        - timeformat
+        - unmarshal
+        - unreachable
+        - unsafeptr
+        - unusedresult
+      disable:
+        - shadow
+        - fieldalignment
+    grouper:
+      import-require-single-import: true
+      import-require-grouping: true
+    misspell:
+      locale: US
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    revive:
+      confidence: 0.8
+      severity: warning
+      rules:
+        - name: blank-imports
+        - name: context-as-argument
+        - name: context-keys-type
+        - name: dot-imports
+        - name: error-return
+        - name: error-strings
+        - name: error-naming
+          arguments:
+            - disableStutteringCheck: true
+        - name: indent-error-flow
+        - name: increment-decrement
+          arguments:
+            - allowCommonInitialisms: true
+    tagliatelle:
+      case:
+        rules:
+          json: snake
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gofumpt:
+      extra-rules: true
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

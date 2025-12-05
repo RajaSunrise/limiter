@@ -31,13 +31,13 @@ func TestChiMiddleware(t *testing.T) {
 
 	for i := 0; i < 5; i++ {
 		w := httptest.NewRecorder()
-		req, _ := http.NewRequest("GET", "/", nil)
+		req, _ := http.NewRequest(http.MethodGet, "/", nil)
 		r.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusOK, w.Code)
 	}
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/", nil)
+	req, _ := http.NewRequest(http.MethodGet, "/", nil)
 	r.ServeHTTP(w, req)
 	assert.Equal(t, http.StatusTooManyRequests, w.Code)
 }
